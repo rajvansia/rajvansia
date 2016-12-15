@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<style>
+
+svg {
+  font: 20px sans-serif;
+}
+
+.line {
+  fill: none;
+  stroke: red;
+  stroke-width: 5.5px;
+}
+
+.tolerance {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<head>
+  <meta charset="utf-8">
+
+  <head>
+  </head>
+
+  <body>
+    <h1>SPO2</h1>
+    <h1 id="spo2"></h1>
+    <spo></spo>
+    <h2 id="content"></h2>
+  </body>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/smart-on-fhir/client-js/v0.1.1/dist/fhir-client.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+<script type="text/babel" src="./jsx/hello.js" charset="utf-8"></script>
+
+
+<script>
+  $(document).ready(function(){
+var n = 20,
+    random = d3.random.normal(96, 2),
+    data = d3.range(n).map(random);
+
+var margin = {top: 20, right: 20, bottom: 20, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+    .domain([1, n - 2])
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .domain([80, 100])
+    .range([height, 0]);
+//  d is the data and i is the ith item
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d, i) { return x(i); })
+    .y(function(d, i) { return y(d); });
+
+// create svg line y value of 100
+var highline = d3.svg.line()
+    .x(function(d, i) { return x(i); })
+    .y(y(100));
+
+var lowline = d3.svg.line()
+    .x(function(d, i) { return x(i); })
+    .y(y(95));
+
+//render the graph area on the body dom element on the html page
+var svg = d3.select("spo").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// clips the svg oncee it hits the width
+svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+// append the x axis to the y value of 0
+// svg.append("g")
+//     .attr("class", "x axis")
+//     .attr("transform", "translate(0," + y(0) + ")")
+//     .call(d3.svg.axis().scale(x).orient("bottom"));
+// append the y axis to the graph
+svg.append("g")
+    .attr("class", "y axis")
+    .call(d3.svg.axis().scale(y).orient("left"));
+
+var path = svg.append("g")
+    .attr("clip-path", "url(#clip)")
+    .append("path")
+    .datum(data)
+    .style("stroke", function(d){if(y(d)<95){return "red"}else {return "blue"} })
+    .attr("class", "line")
+    .attr("d", line);
+// is an svg and append to the graph pass data d into highline function return svg  give it a css class tolerance inline styles what is datum
+var highpath = svg.append("g")
+    .attr("clip-path", "url(#clip)")
+    .append("path")
+    .style("stroke-dasharray", "4,4")
+    .datum(data)
+    .attr("class", "tolerance")
+    .attr("d", highline);
+
+var lowpath = svg.append("g")
+    .attr("clip-path", "url(#clip)")
+    .append("path")
+    .style("stroke-dasharray", "4,4")
+    .datum(data)
+    .attr("class", "tolerance")
+    .attr("d", lowline);
+//position of the svg dot is determnned by the cy and cx has a radius of 55 and the inline style of red if that or blue if grater than 90
+var dots =  svg.append("g");
+    dots.attr("clip-path", "url(#clip)");
+      dots.selectAll("dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("r", 5.5)
+        .style("fill",function(d){if(d<95){return "red"}else if(d>=95){return "transparent"} })
+        .attr("cx", function(d,i) { return x(i); })
+        .attr("cy", function(d,i) { return y(d); })
+tick();
+
+function tick() {
+  var spo = 0;
+  spo = random();
+  // push a new data point onto the back
+  data.push(spo);
+  console.log(spo);
+  if(spo<95){
+      $("#spo2").css("color","red").text(Math.floor(spo)+"%");
+  }
+  else{
+      $("#spo2").css("color","black").text(Math.floor(spo)+"%");
+  }
+  // redraw the line, and slide it to the left
+  dots
+      .attr("d", dots)
+      .attr("transform",  "translate(" + x(1) + ",1)")
+    .transition()
+      .duration(1000)
+      .ease("linear")
+      .attr("transform", "translate(" + x(0) + ",0)")
+  path
+      .attr("d", line)
+      .attr("transform", null)
+    .transition()
+      .duration(1000)
+      .ease("linear")
+      .attr("transform", "translate(" + x(0) + ",0)")
+
+
+
+      .each("end", tick);
+
+  // pop the old data point off the front
+  data.shift();
+
+}
+
+
+
+    });
+</script>
+</html>

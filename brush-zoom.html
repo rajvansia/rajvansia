@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<!-- adapted from mbostock v4 area brush http://bl.ocks.org/mbostock/34f08d5e11952a80609169b7917d4172-->
+<meta charset="utf-8">
+
+
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D3.js v4 scatter plot with brush &mdash; Raj Vansia</title>
+  <!--[if lt IE 9]><script src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js'></script><![endif]-->
+
+<link rel="stylesheet" href="/assets/normalize.css">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="stylesheet" href="/assets/buttons.css">
+<link rel="stylesheet" href="/assets/icons.css">
+<link rel="stylesheet" href="/assets/article.css">
+<link rel="stylesheet" href="/assets/contact_form.css">
+<link rel="stylesheet" href="/assets/syntax.css">
+<link rel="stylesheet" href="/assets/google_map_container.css">
+<link rel="stylesheet" href="/assets/cover.css">
+<link rel="stylesheet" href="/assets/pagination.css">
+<link rel="stylesheet" href="/assets/site_header.css">
+<link rel="stylesheet" href="/assets/site_footer.css">
+<link rel="stylesheet" href="/assets/responsive.css">
+<link rel="stylesheet" href="/assets/app.css">
+<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.4/gist-embed.min.js"></script>
+<style>
+h1,
+iframe {
+  width: 960px;
+}
+
+</style>
+</head>
+<script src="/assets/app.js"></script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  <meta name="title" content="Creating a scatter plot with brush using D3.js v4">
+
+  <meta property="og:description" content="scatter plot d3.js v4"/>
+  <meta name="description" content="Creating a scatter plot with brush using D3.js v4"/>
+
+  <meta property="og:site_name" content="Raj Vansia">
+</head>
+
+
+
+
+
+
+<body>
+
+  <header class="site-header">
+    <nav>
+      <a class="brand" href="/">
+        <img src="/images/logo.png" alt="Inc">
+      </a>
+      <a href="/">Blog</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+
+<!-- <div class="article-cover" style="background-image:url(https://lh3.googleusercontent.com/ym99kcNrnmKiPhr0ZtunGy-jy3EsNMU523iLcCkJn6fHpYMryq2CKa3VqqghunkU5-9Wp8XjPGYeZMZKCr1w-yidRJQ24_bX-hqHfsdXfhMDEWeHfFJtJGi9zybtsAqb6eZVlJ0C1dDhfpuScQxUex3752XDCX7QIGlSZhBWo08bLTZcOxWftofJA0RaRroiNtoSJDPFRYhT0NUltr1MUGUH8eimaF628Az6XZUahsc3UYhNREAbw9ciKCeK9bgC9I_h03rW_sofacD9dZJpGma1wOnrEnEjibYTSGFeJI6ITzoRPP2ZHzrz4TpZMuYKTS8IbI8sadolGYe5XZinxEDfzDyS3u_d6xViL-iRsqbsoigrCB49huTmJ6XjSbYih4EdCjK_dERmCrreA_gcQZ05F9PZV9i16-SvkVeRcm8PYUaipZUlaZnlyaBkNfPrKl1CxO9PX-w9dy15xlfXbhTtEzizLxZ6U-SpZRQf6jv5p2imYTpdlUholNXwr0nbnji-lKHA50ef5r8iHOKd8tvruzwsgZnL15gdMLPn0PY39_AuB_K5nOft5StAro6LnC2c=w799-h599-no)"></div> -->
+
+
+<!-- <div class='cover-caption'><a href='/about.html#pictures'>Swiss Alps Photo: Janki Vansia</a></div> -->
+
+
+<article >
+
+  <div class="container">
+    <header>
+      <div class="meta">
+        By <address><a rel="author" href="/Patient-Generated-Health-Data-Deluge" title="Raj Vansia" target="_blank">Raj Vansia</a></address> &mdash;
+        <time pubdate datetime="2016-28-March" title="Mar 28, 2016">July 9, 2016</time> &mdash;
+
+5 min read
+      </div>
+      <h1 class="title">Creating a scatter plot with brush using D3.js v4</h1>
+
+    </header>
+
+    <section>
+      <!-- <p>Keeping tabs on all your medical devices</a>.</p> -->
+
+
+   <iframe src="/scatter.html" marginwidth="0" marginheight="0" scrolling="no" style="height:500px;"></iframe>
+
+<br></br>
+<p>
+I have been playing around with D3.js and C3.js to help visualize health data from FHIR.   Today I will show you how to make a simple and interactive graph that charts the users Blood pressure leveraging C3.js and the SMART on FHIR api. You can find the code here on <a href="https://github.com/rajvansia/bp-smart-fhir" target="_blank">github</a>  The data is accessed using the SMART on FHIR api to retrieve all of the blood pressure observation results. The cool part is that you can dynamically explore the data by selecting the date range you want to view or select an individual data point to get more information of the observation. It doesn’t require any page refreshes and it is very seamless UI.  You can potentially do a lot more such as toggle between different  types of data such as show me BP for only standing up or show me BP taken by a provider. With this framework you can easily customize your graphs to your need. </p>
+<h1>SMART on FHIR</h1>
+<p>
+FHIR is a framework that tries to solve the healthcare interoperability problem by creating standardized data formats and making them available to use through Restful apis. The fundamental health care data component in FHIR is the resource. A resource is semi-structured data that can describe a patient's medical data. This can range from medications, observations and care plans. With this semi-structured data you now have access to granular clinical data for patients.  SMART on FHIR is a framework developed by Boston Children’s Hospital or Harvard Medical School to help create apps using FHIR resources, oauth on top of existing EHRs in order to make healthcare more connected.
+
+</p>
+<h1>D3.js and C3.js</h1>
+<p>
+D3.js is dynamic data documents. It basically allows you to make interactive graphs to help explore and represent your data using javascript. It is a very powerful library that provides granular control of how to display your data. It does so by manipulating the DOM of your web page by using SVG elements, css styling, and javascript functions to create graphs. C3.js is a chart library on top of D3.js which simplifies creating charts.</p>
+
+<h1>Retriving data from your FHIR API </h1>
+<p>
+Now how do you create graphs using the SMART api? The easiest way to think about it is that just with any graph you have variables that contain specific data points. In D3 you can define your data in an array. Each data point can be an object that has the x,y variable but it can also have anything else such as description, code type or units. So you can have a BP measurement of 123mmhg taken on 1/5/2016 and the description is systolic pressure. You can retrieve this information from your FHIR data schema and store it all together in a nested array. For example it may look like [[bp: date: 110,1/5/2016],[bp: 120,date: 1/7/2016]] now with this information you are able to display it any way you chose using D3. All you need to do is read the data from FHIR and store it in a specific data structure so that D3 can use it.
+D3 library uses helper functions that help you create generic elements such as a line graph
+I will walk you through how to create a basic graph with D3js and using data from FHIR.
+</p>
+
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="2-6"></code>
+
+
+<p>
+Reference the script for the d3 c3  javascript and ccs libraries that will enable us to use C3 functions to create graphs relatively easy.
+References the fhir clint library. It will allow you to use the fhir api to retrieve patient data and gain access to fhir functions
+</p>
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="8-12,14-24,132-152"></code>
+<p>
+We are going to create the 3 buttons that will generate a different graph based on which patient is selected. You will call the fhir client and connect to the smart test server for a specific patient by using the service url and the patient's id.  In this example we will have 3 patients so we can see each of their bp data. Each button when clicked will execute the id function with the patient's unique id as the parameter passed through it. This is done by using a jquery function when clicking each of the buttons. That id is used to connect to the smart server and retrieve their data and generate the graph. Granted this value would never be hard coded in production it just makes it easier to test. You will store the patient id and later on have access to retrieve specific data determined by the resources you chose to search for.
+</p>
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="26-32"></code>
+<p>
+Next we will create the title of our graph displaying the patient's name that is selected. The FHIR read function can be applied to the patient profile object to retrieve their name. This profile resource has access to the patients name emergency contacts and other basic information. In this example we are retrieving the patients given first name and their family name. We will combine their first name and their family name to create their full name which we will store in the formatted varible.  We will call this function later in our c3.js code in the title section of our graph. It will make a lot more sense once you look at how the data is structured for the name attribute.
+</p>
+<h1 id="route-options"> Retriving The Patient's Blood Pressure Data</h1>
+
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="43-71"></code>
+
+<p>
+
+The first part of the code is to use pt.api.search this is a smart function that allows you to search a resources type, furthermore you can query a particular resource by a filter such as the code value to only retrieve relevant information. In this case 55284-4  are the lonic code values for a blood pressure observations which will include systolic and diastolic measurements. Now that our query of all the blood pressure readings for this patient is saved in the bps variable we will loop over each entry and retrieve each encounter where blood pressure was taken. Bp.resource.component will store the individual resource observation in the variable blood. We will then store the date the blood pressure observation was taken on in our x array. This will be the array will store all our dates of the observations and help build our x axis.  Within each bp observation there is a systolic and diastolic entry. We will store the diastolic and systolic values within their own arrays so we can create two line graphs. For a single bp observation we will loop over the components and if it has a 8480-6 lonic code we will store the b.valueQuantity.value in our systolic array. The same goes for our diastolic lonic code 8462-4.
+
+</p>
+
+<p>
+So finding a way to actually retrieve data from the resource took longer than I would like I assumed you can just call the patient and access the data by a regular javascript . Object. However as you see on the first line you need to specify the loic codes for the data that you want to access. This does make sense because you want to only access the patients data that is necessary for your application. This prevents you from retrieving patient health data that is not relevant which is a hippa guideline. You only want to have access to just enough patient data to get your job done.
+
+</p>
+<h1 id="route-options">Graphing Our Data Using C3.js </h1>
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="75-91"></code>
+<p>
+We will create the chart by using a c3.js function .generate. This will create a graph and encapsulate all of its components.  As we said before our title will display the current patient's name. We will call the name() function and the return the patient's name and then concatenate it with "Blood Pressure Data". So you can see when you click on the different buttons the name on the title changes.  Then we declare our x and y variables. In this case  we will have 2 y variables that will generate two line graphs one for systolic pressure and one for diastolic pressure. We will call our diastolic and systolic arrays that we created when we queried our blood pressure observations. The x variable will be the dates when each of the observations were taken. C3.js makes it easy to create a brushing which is a miniaturized version of the graph that you can interact with and select a specific range of x values you want to display on your main graph All you need to do in C3.js to enable this is call subchart true.
+
+</p>
+<h1>Formatting our Axis</h1>
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="92-114"></code>
+<p>
+Let's now customize our x and y axis. Our x axis will be when we took our blood pressure measurement. To make our chart less busy we will set the amount of tick marks to just 6. Additionally, we change the format of the date to just display month date and year. If we don’t format the date the label will also include the time which makes the graph hard to read. The y axis label our blood pressure readings in mmHg . The y axis will dynamically change based on the y domain for the data set.
+</p>
+
+<p>
+  Can doctors and clinicians keep up with the demands of analyzing data? Clinicians don’t need to be trained on how to interpret large data sets. That is where we, engineers, can play a big roll. We can make it easier to summarize and interpret the data for clinicians and then present the data in a format they are used to seeing. We need to summarize the data in a format that they can understand and make meaningful clinical decisions from.
+</p>
+<p>
+Health data is vital for the next stage of making medicine affordable and detecting aliments before they grow into larger problems. At the end of the day we must not solely relay on technology to tell us how we feel and what our health is. Biology has already developed sophisticated control mechanisms and sensing capabilities to determine if our health is detreating. We must also increase our ability to listen to our own sensors already existing in our bodies which are finely tuned by evolution.
+
+</p>
+<h1>Creating A Tool Tip</h1>
+<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059" data-gist-line="42,122-135"></code>
+<p>
+    The tool tip will allow you to click on a data point display the time the blood pressure was taken and both the systolic and diastolic measurement. The title of our tooltip will be the date the measurement was taken. We create a function in line 42 to convert our time into a simple format so it can fit in our tool tip. Lastly we return the Y value of our data point which will be the systolic and diastolic measurement. Try it yourself and click on a point and see what is displayed.
+</p>
+
+<p>
+    This was a basic introduction on how to use the FHIR api to graph a patient's data using C3.js. This is really the first iteration of the graph and there is room for a lot of improvement. I wish I had a better ability to create test patients and create test data so I can create applications that can combine various data resources. Such as seeing how blood pressure changes when a certain drug is being taken by a patient.  I can make this an ongoing project with added improvements. Here are some of my thoughts.
+
+</p>
+<ol>
+<li>I want to be able to create better UI for mobile</li>
+<li>Enable real time graphing</li>
+<li>Calculate and graph mean BP </li>
+<li>Show contextual data such as drug usage so I can see the effects on BP
+</li>
+
+</ol>
+
+<!--<code data-gist-id="4ba1fc18b8880e0f0e3bdb2b86da6059"></code>-->
+
+<div class="social">
+
+  <div class='twitter'>
+    <a href="https://twitter.com/share" class="twitter-share-button"  data-text="REal time tracking system" data-related="Rajvansia">Tweet</a>
+  </div>
+
+
+
+  <div class='facebook'>
+    <div class="fb-share-button" data-layout="button_count"></div>
+  </div>
+
+
+
+
+
+
+<!--
+  <div class='reddit'>
+    <a href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url=http://willkoehler.net/2014/12/22/alternate-route-options-for-the-olentangy-trail.html&title=Alternate+Route+Options+For+The+Olentangy+Trail'); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+  </div> -->
+
+</div>
+
+    </section>
+
+    <footer>
+      <!-- <address>
+        <img src="/images/wk.jpg">
+        <p>Written by <strong><a rel="author" href="https://twitter.com/wckoehler" title="" target="_blank">Will Koehler</a></strong><br>
+          <span class="muted">Cycling advocate and web developer.</span>
+        </p>
+      </address>
+
+
+
+      <section class="post_summary">
+        <h3 class="title">Previous story: <a href="/2014/11/07/client-side-solution-for-downloading-highcharts-charts-as-images.html" rel="prefetch">Client-Side Solution For Downloading Highcharts Charts as Images</a></h3>
+        <p>I wanted a straightforward, client-side solution for downloading the SVG charts generated by Highcharts as images. It can be done, but relies on a set of web technologies that are still evolving.</p>
+        <hr>
+      </section> -->
+
+
+      <section>
+        <div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//rajvansia.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      </section>
+
+    </footer>
+  </div>
+</article>
+
+
+<footer class="site-footer">
+  <div class="container">
+    &copy; 2015 Raj Vansia
+
+    <nav>
+      <a href="/">Blog</a> &middot;
+      <a href="/about">About</a>
+    </nav>
+
+
+
+    <ul class="social-networks bounce">
+      <!-- <li><a href="https://www.linkedin.com/in/rajvansia" class="icon-linkedin">LinkedIn</a></li>
+      <li><a href="https://twitter.com/rajvansia" class="icon-twitter">Twitter</a></li>
+      <li><a href="https://facebook.com/raj.vansia" class="icon-facebook">Facebook</a></li>
+       -->
+       <li><a href="https://www.linkedin.com/in/rajvansia" class="icon-linkedin">LinkedIn</a></li>
+        <li><a href="https://github.com/rajvansia" class="icon-github">GitHub</a></li>
+        <li><a href="https://facebook.com/raj.vansia" class="icon-facebook">Facebook</a></li>
+      <!-- <li><a href="https://twitch.tv" class="icon-twitch">Twitch</a></li>
+      <li><a href="https://github.com" class="icon-github">GitHub</a></li>
+      <li><a href="https://pinterest.com" class="icon-pinterest">Pinterest</a></li>
+      <li><a href="https://instagram.com" class="icon-instagram">Instagram</a></li>
+      <li><a href="https://vimeo.com" class="icon-vimeo">Vimeo</a></li> -->
+    </ul>
+    <div>Based on Incorporated theme by <a href="https://sendtoinc.com">Inc</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var margin = {top: 20, right: 20, bottom: 110, left: 50},
+    margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    height2 = 500 - margin2.top - margin2.bottom;
+var parseDate = d3.timeParse("%b %Y");
+var x = d3.scaleTime().range([0, width]),
+    x2 = d3.scaleTime().range([0, width]),
+    y = d3.scaleLinear().range([height, 0]),
+    y2 = d3.scaleLinear().range([height2, 0]);
+var xAxis = d3.axisBottom(x),
+    xAxis2 = d3.axisBottom(x2),
+    yAxis = d3.axisLeft(y);
+var brush = d3.brushX()
+    .extent([[0, 0], [width, height2]])
+    .on("brush", brushed);
+var area = d3.area()
+    .curve(d3.curveMonotoneX)
+    .x(function(d) { return x(d.date); })
+    .y0(height)
+    .y1(function(d) { return y(d.price); });
+var area2 = d3.area()
+    .curve(d3.curveMonotoneX)
+    .x(function(d) { return x2(d.date); })
+    .y0(height2)
+    .y1(function(d) { return y2(d.price); });
+var svg = d3.select("scatter").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+var focus = svg.append("g")
+    .attr("class", "focus")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var context = svg.append("g")
+    .attr("class", "context")
+    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+d3.csv("sp500.csv", type, function(error, data) {
+  if (error) throw error;
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) { return d.price; })+200]);
+  x2.domain(x.domain());
+  y2.domain(y.domain());
+// append scatter plot to main chart area
+ var dots = focus.append("g");
+    dots.attr("clip-path", "url(#clip)");
+    dots.selectAll("dot")
+        .data(data)
+        .enter().append("circle")
+        .attr('class', 'dot')
+        .attr("r",5)
+        .style("opacity", .5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.price); })
+
+  focus.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+  focus.append("g")
+      .attr("class", "axis axis--y")
+      .call(yAxis);
+
+focus.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Price");
+
+svg.append("text")
+      .attr("transform",
+            "translate(" + ((width + margin.right + margin.left)/2) + " ," +
+                           (height + margin.top + margin.bottom) + ")")
+      .style("text-anchor", "middle")
+      .text("Date");
+
+// append scatter plot to brush chart area
+ var dots = context.append("g");
+     dots.attr("clip-path", "url(#clip)");
+     dots.selectAll("dot")
+        .data(data)
+        .enter().append("circle")
+        .attr('class', 'dotContext')
+        .attr("r",3)
+        .style("opacity", .5)
+        .attr("cx", function(d) { return x2(d.date); })
+        .attr("cy", function(d) { return y2(d.price); })
+
+  context.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(xAxis2);
+  context.append("g")
+      .attr("class", "brush")
+      .call(brush)
+      .call(brush.move, x.range());
+});
+//create brush function redraw scatterplot with selection
+function brushed() {
+  var selection = d3.event.selection;
+  x.domain(selection.map(x2.invert, x2));
+  focus.selectAll(".dot")
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.price); });
+  focus.select(".axis--x").call(xAxis);
+
+
+}
+function type(d) {
+  d.date = parseDate(d.date);
+  d.price = +d.price;
+  return d;
+}
+</script>
