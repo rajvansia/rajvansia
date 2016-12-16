@@ -39,7 +39,7 @@ svg {
   stroke-width: 3.5px;
 }
 
-a:focus, a:hover {
+a:focus, a:hover{
     color: #ffffff;
     text-decoration: none;
 }
@@ -64,10 +64,7 @@ a:focus, a:hover {
   shape-rendering: crispEdges;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
+
 
 b, strong {
     font-weight: 700;
@@ -92,6 +89,11 @@ b, strong {
 .streamerName {
   font-size: 2.2em;
   font-weight: bold;
+  color: white;
+}
+
+.streamerGame{
+  color: white;
 }
 
 .numOfViewers {
@@ -282,7 +284,7 @@ We can plot our SPO2 data as we receive new messages. This will allow us to see 
 
 
     <section>
-      <div id="disqus_thread"></div>
+      <div id="disqus_thread" class="disqus"></div>
 <script>
 /**
 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
