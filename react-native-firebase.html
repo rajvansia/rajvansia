@@ -142,9 +142,9 @@ With Firebase you can manually enter in data into the database which is great fo
 <p>listenForItems function will update the state when there are any new changes to the meals database. It will update the state with any changes which will allow our react components to update accordingly without having a page refresh. That is one of the great features of react is that it has the ability to update only the components needed when it notices a change in data.</p>
 
 <h2 id="how-to-create-and-order-section-headers">How to create and order section headers</h2>
-<img  src="/images/EasyMeal-Order.png" style= "margin-left: 0px;" >
+<img  src="/images/EasMeal-Order.png" style= "margin-left: 0px;" >
 <p>In order to organize meals by day we need to create mapping function that groups the meals that have the same day together. This will create a header for each of the meals for the particular day.</p>
- <img  src="/images/list-view" style= "margin-left: 0px;" >
+
 <p>If you do not set the header with the initial mapping order it will not go in sequential order with the days. This is because it will it will just go off of what comes first in the database. 
  As you can see below Sunday does not come after Monday although i wish it did! So to order the data we are setting the initial order of our map to correspond to the days of the week in our array..
 var dayMap = {Monday:[],Tuesday:[],Wednesday:[], Thursday:[], Friday:[], Saturday:[], Sunday:[]};</p>
