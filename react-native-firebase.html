@@ -98,6 +98,9 @@
 
     <section>
       <h2 id="react-native-firebase-tutorial">React-Native Firebase Tutorial</h2>
+<iframe src="//giphy.com/embed/IFK2fJMaAqeti" width="300" height="600" frameBorder="0" class="giphy-embed" allowFullScreen> </iframe>
+
+
 <p>Getting Started With React Native and Firebase Tutorial</p>
 
 <p>I finally bit the bullet and bought a mac recently. The first thing I wanted to do was try out was Xcode and build some simple apps. I have past experience using React so I thought it would be natural to play around with React Native to build a simple app with a firebase backend.</p>
@@ -120,7 +123,7 @@ NPM install react-native-vector-icons.</p>
 Starting from a new react-native project create a new folder called components. This is where each of your react components such as The list of meals, add and edit pages will live. To launch a react native app type react-native run-iOS. This will package your app and launch the simulator. The index.ios.js file is the entry point into your app.</p>
 
 <h2 id="create-a-nav-bar-header">Create a Nav Bar header</h2>
-
+<img  src="/images/EasyMeal-Nav.gif" style= "margin-left: 0px;" >
 <p>The Nav bar header will be the area where most of our navigation controls will be located. In this app we will have an Add and Edit button to the user can add new meals. Addtiionaly when the user traverses through different scenes a back button will be used to go back one scene.</p>
 
 <h2 id="create-a-listview-for-displaying-the-list-of-weekly-meals">Create a Listview for displaying the list of weekly meals</h2>
@@ -139,9 +142,9 @@ With Firebase you can manually enter in data into the database which is great fo
 <p>listenForItems function will update the state when there are any new changes to the meals database. It will update the state with any changes which will allow our react components to update accordingly without having a page refresh. That is one of the great features of react is that it has the ability to update only the components needed when it notices a change in data.</p>
 
 <h2 id="how-to-create-and-order-section-headers">How to create and order section headers</h2>
-
+<img  src="/images/EasyMeal-Order.png" style= "margin-left: 0px;" >
 <p>In order to organize meals by day we need to create mapping function that groups the meals that have the same day together. This will create a header for each of the meals for the particular day.</p>
-
+ <img  src="/images/list-view" style= "margin-left: 0px;" >
 <p>If you do not set the header with the initial mapping order it will not go in sequential order with the days. This is because it will it will just go off of what comes first in the database. 
  As you can see below Sunday does not come after Monday although i wish it did! So to order the data we are setting the initial order of our map to correspond to the days of the week in our array..
 var dayMap = {Monday:[],Tuesday:[],Wednesday:[], Thursday:[], Friday:[], Saturday:[], Sunday:[]};</p>
@@ -151,11 +154,13 @@ var dayMap = {Monday:[],Tuesday:[],Wednesday:[], Thursday:[], Friday:[], Saturda
 If you look at our detail view scene we have a few components. The top title bar includes the meal name and the day. While the two cards below it display the image and ingredient list.</p>
 
 <h2 id="create-an-add-button-to-create-a-new-meal">Create an Add button to create a new meal</h2>
+      <img  src="/images/EasyMeal-Add.png" style= "margin-left: 0px;" >
 <p>Instead of manually adding new items directly through the firebase console to update the database we will create a new component in our app to add new meals. For the first iteration we will be able to define the meal’s name, image and what day we plan on eating it. In the home screen we have an add button so the user can easily add a new meal. Once this button is pressed it will render a new scene which is the MealForm component. For our form component we will be using react-native-form-generator package. It will allow form data to be captured in a form object that can then be passed into our firebase database. 
 We are using a package to easily handle creating forms. The point of the form is to take the user inputs and then when the save button is clicked to upload the value of the form entires to our database.<br />
 For firebase we have .push which creates a new entry within the database with. a unique key. We pass the following meal object ’s key and value pairs. Next we will clear the form and automatically navigate back to our main meal list screen where you can see the newly entered meal information.</p>
 
 <h2 id="how-to-upload-an-image">How to upload an image</h2>
+      <img  src="/images/EasyMeal-Image.png" style= "margin-left: 0px;" >
 <p>To upload a image to our app from our image library we will call the . A neat trick I found was that you can save images from the web directly on your simulator. So I saved a few pictures of the foods i want to add. The function will get the image’s local file path. This path will be saved to our firebase database.</p>
 
 <p>In part 2 i will show you how to edit and delete meals from your list</p>
