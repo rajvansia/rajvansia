@@ -30,7 +30,9 @@ body {
   text-rendering: optimizelegibility;
   font-size: 18px;
   line-height: 1.428571429; }
-
+pre {
+    background-color: lightgray;
+}
 img {
   vertical-align: bottom; }
 
