@@ -92,7 +92,8 @@ This tutorial assumes that you have Spark and Kafka already installed.</p>
 
 <p>Our Kafka topic will be vitals. You can spin up a consumer to make sure that its working. Just subscribe to the vitals topic. Great now we know that our Kafka producer is working over that port and we should now be able to subscribe to these topics from our spark application and perform a word count.</p>
   <pre><code>
-  kafka-console-producer.sh --broker-list localt:9092 --topic vitals  </code></pre>
+  kafka-console-producer.sh --broker-list localt:9092 --topic vitals  
+  </code></pre>
   <pre><code>
   kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic vitals 
   </code></pre>
