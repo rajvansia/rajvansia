@@ -85,7 +85,7 @@
     </header>
 
     <section>
-      <h2 id="how-to-run-a-spark-streaming-kafka-word-count-example">How to Setup a Spark streaming Kafka Word Count example.</h2>
+      <h2 id="how-to-run-a-spark-streaming-kafka-word-count-example">How to Setup a Spark Streaming Kafka Word Count example.</h2>
 
 <p>This will be a quick setup guide on how to run the Spark Kafka streaming example. The Kafka streaming example does not work right out of the box because Spark does not come with the org.apache.spark.streaming.kafka010 package. For this example we will be using Spark 2.0.2 and Kafka 10.1.0. 
 This tutorial assumes that you have Spark and Kafka already installed.</p>
@@ -101,7 +101,7 @@ This tutorial assumes that you have Spark and Kafka already installed.</p>
   <pre><code>
   kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic vitals 
   </code></pre>
-<h2 id="ways-to-include-the-spark-kafka-stearming-package">2 ways to include the Spark Kafka Stearming package</h2>
+<h2 id="ways-to-include-the-spark-kafka-stearming-package">2 ways to include the Spark Kafka Strearming package</h2>
 <p>You need to reference the package or else you will get a class not found error for Streaming.KafkaUtils. This is because Spark does not come with this pacakge.  One way is to submit the jar when you enter spark submit. Secondly you can create an uber Jar with the streaming</p>
   <pre><code>
   sbt assembly
