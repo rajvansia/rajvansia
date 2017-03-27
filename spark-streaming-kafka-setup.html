@@ -83,6 +83,7 @@
       <h1 class="title">Spark Kafka Streaming Setup</h1>
       <h2 class="subtitle"></h2>
     </header>
+<img  src="/images/wordcount-spark.gif" style= "margin-left: 0px;" >
 
     <section>
      <h2 id="how-to-run-a-spark-streaming-kafka-word-count-example">How to Run a Spark streaming Kafka Word Count example.</h2>
@@ -112,6 +113,7 @@
   bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic vitals 
   </code></pre>
 <p>Now when you type anything in your producer  terminal the words will display on your consumer that is subscribed to the topic. This shows that your consumer and producer setup is working. We will now use Spark to consume our Kafka stream.</p>
+<img  src="/images/kafka-producer-consumer.gif" style= "margin-left: 0px;" >
 
 <h2 id="ways-to-include-the-spark-kafka-stearming-package">2 ways to include the Spark Kafka Stearming package</h2>
 <p>In order to consume Kafka messages we need the Spark streaming Kafka utilities. You need to reference the class or else you will get a class not found error for Streaming.KafkaUtils. This is because Spark does not come with this class out of the box. There are two ways that we can accomplish this. One way is to submit the jar when you use spark submit. Secondly you can create an uber Jar with the streaming Kafka package.</p>
@@ -135,6 +137,9 @@ Now under your build.sbt Include the spark-streaming-kafka-0-10_2.11 package. De
   <pre><code>
   spark-submit  --class netw.netw --master local[8] file:/Users/rajvansia/IdeaProjects/nettarget/scala-2.11/netw_2.11-1.0.jar localhost 9999
   </code></pre>
+	    
+<img  src="/images/wordcount-spark.gif" style= "margin-left: 0px;" >
+
 <div class="social">
   
   <div class='twitter'>
