@@ -31,7 +31,7 @@
 <script>
 
 function id(idd){var demo = {
-    serviceUrl: "https://fhir-open-api-dstu2.smarthealthit.org",        //allows you to connect to your smar server and query a patient
+    serviceUrl: "https://sb-fhir-dstu2.smarthealthit.org/api/smartdstu2/open",        //allows you to connect to your smar server and query a patient
     patientId: idd  // josuah p willams hca-pat-55 1137192 9995679 99912345
 };
 
@@ -154,20 +154,20 @@ var chart = c3.generate({
 
     $(document).ready(function(){
 
-        id("99912345")
+        id("SMART-99912345")
 
          $('#btn').click( function(){
-            id("1951076")
+            id("SMART-1951076")
 
          })
           $('#btn2').click( function(){
 
-            id("9995679")
+            id("SMART-9995679")
 
          })
           $('#btn3').click( function(){
 
-            id("99912345")
+            id("SMART-99912345")
 
 
          })
