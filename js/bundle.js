@@ -139,7 +139,7 @@
 	      var _this2 = this;
 
 	      // get inital state of patient information
-	      this.getPatient("9995679");
+	      this.getPatient("SMART-9995679");
 
 	      // subscribe
 	      pubnub.subscribe({
@@ -159,7 +159,7 @@
 	      var _this3 = this;
 
 	      var demo = {
-	        serviceUrl: "https://fhir-open-api-dstu2.smarthealthit.org", //allows you to connect to your smar server and query a patient
+	        serviceUrl: "https://sb-fhir-dstu2.smarthealthit.org/api/smartdstu2/open", //allows you to connect to your smar server and query a patient
 	        patientId: idd // josuah p willams hca-pat-55 1137192
 	      };
 
@@ -255,7 +255,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { className: 'patientButton', onClick: function onClick() {
-	                return _this4.handleClick("9995679");
+	                return _this4.handleClick("SMART-9995679");
 	              } },
 	            _react2.default.createElement(
 	              'b',
@@ -266,7 +266,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { className: 'patientButton', onClick: function onClick() {
-	                return _this4.handleClick("99912345");
+	                return _this4.handleClick("SMART-99912345");
 	              } },
 	            _react2.default.createElement(
 	              'b',
