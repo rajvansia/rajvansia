@@ -113,7 +113,7 @@ function brushed(data) {
   })
   var maxx = d3.max(dataFiltered, function(d) { return d.price; })
   console.log(maxx)
-  y.domain([0,maxx+200]);
+  y.domain([0,maxx+maxx*.1]);
   focus.selectAll(".dot")
         .attr("cx", function(d) { return x(d.date); })
         .attr("cy", function(d) { return y(d.price); });
