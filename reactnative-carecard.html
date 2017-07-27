@@ -1,1 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React-Native CareCard &mdash; RajVansia</title>
+  <!--[if lt IE 9]><script src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js'></script><![endif]-->
+  
+  <link rel="stylesheet" href="/assets/normalize.css">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="stylesheet" href="/assets/buttons.css">
+<link rel="stylesheet" href="/assets/icons.css">
+<link rel="stylesheet" href="/assets/article.css">
+<link rel="stylesheet" href="/assets/contact_form.css">
+<link rel="stylesheet" href="/assets/syntax.css">
+<link rel="stylesheet" href="/assets/google_map_container.css">
+<link rel="stylesheet" href="/assets/cover.css">
+<link rel="stylesheet" href="/assets/pagination.css">
+<link rel="stylesheet" href="/assets/site_header.css">
+<link rel="stylesheet" href="/assets/site_footer.css">
+<link rel="stylesheet" href="/assets/responsive.css">
+<link rel="stylesheet" href="/assets/app.css">
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="/assets/google_map_fix.js"></script>
+<script src="/assets/zoomable_image.js"></script>
+<script src="/assets/app.js"></script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="/favicon.ico?v2" type="image/x-icon" />
+  <link rel="alternate" type="application/atom+xml" title="RajVansia" href="/atom.xml" />
+  <meta name="title" content="React-Native CareCard ">
+  <link rel="canonical" href="https://rajvansia.com/React-Native-CareCard/">
+   
+         
+  <meta property="og:title" content="React-Native CareCard"/>
+  <meta property="og:url" content="https://rajvansia.com/React-Native-CareCard/"/>
+  <meta property="og:image" content="https://rajvansia.com/images/meditation-tree.jpg"/>
+  
+  <meta property="og:description" content="Beginning your journey into meditation is like reading a good book that never ends. You will explore the depths of your being and find immense relaxation. To help you get started just see the multitude of benefits that meditation can"/>
+  <meta name="description" content="Beginning your journey into meditation is like reading a good book that never ends. You will explore the depths of your being and find immense relaxation. To help you get started just see the multitude of benefits that meditation can"/>
+  
+  <meta property="og:site_name" content="RajVansia">     
+</head>
+<body>
+    
+  <header class="site-header">
+    <nav>
+      <a class="brand" href="/">
+        <img src="/images/rv.PNG" alt="Inc">
+      </a>
+      <a href="/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/recipes/">Recipes</a>
+    </nav>
+  </header>
+
+  
+<div class="article-cover" style="background-image:url(/images/meditation-tree.jpg)"></div>
+
+
+<div class='cover-caption'><a href='/about.html#pictures'>Meditation peace tree relax</a></div>
+
+
+<article >
+
+  <div class="container">
+    <header>
+      <div class="meta">
+        By <address><a rel="author" href="" title="Raj Vansia" target="_blank">Raj Vansia</a></address> &mdash;
+        <time pubdate datetime="2017-27-July" title="Jul 27, 2017">Jul 27, 2017</time> &mdash;
+        
+4 min read
+      </div>
+      <h1 class="title">React-Native CareCard</h1>
+      <h2 class="subtitle"></h2>
+    </header>
+
+    <section>
+      <h2 id="react-native-care-card-for-a-mindful-eating-app">React-Native Care Card for a Mindful Eating App</h2>
+<p>This is the first of the series to make a mindful eating app using react-native and FHIR. The overall app will have a high level dashboard with what i call care cards to show the current mental and health state for patients. It will also track how frequently they practice mindful eating and can log each of their sessions. This can help to determine what is effective in improving their mental and physical wellbeing. One major aim is to make it easy for users to enter in data so that there is a large amount of data to gain meaningful insights.</p>
+
+<p>For the first part of the app we will be creating the high level dashboard. This consists of a reusable reactive component we call a CareCard. This care card will have the parameter we are measuring such as Mood weight, Blood pressure, or mindful eating sessions. It will display the current value of the parameter, icon and the last date the value was updated. The care card is also the entry point to a more detailed view of the scene.</p>
+
+<p>Ultimintly we will connect the data that is captured from the app to the patient’s EHR. This will allow clinicians more data that they can utilize for diagnosis or prevention.</p>
+
+<h2 id="design-of-the-care-card">Design of the Care Card</h2>
+
+<p>To design the care card we will break up the card into 4 different components. The title of the parameter 2. The Icon 3. the value 4. the date last updated.</p>
+
+<p>To start our dashboard of cards we will have a container that will wrap all our components. This will include the padding on the top and bottom for our nav bars.</p>
+
+<p>Lets create a basic version of our care card without any styling. All we need to do is layout the components.</p>
+
+<p>The beauty of react is now that i have created a modular component i can use it reputably with the flexibility to change its contents based on the props we pass. So i can use the same cards component to create my mood weight and blood pressure cards. This way our cards are easy to create and they have a consistent layout/theme.</p>
+
+<h2 id="creating-the-basic-layout">Creating the Basic Layout</h2>
+
+<p>we pass each of these props into our component and display it. For our first iteration it does not look so aesthetic, but it gives you a basic structure of the card. Finally we export default component so it can be used throughout our app.</p>
+
+<p>for our first style we will create the cards. All you have to do is create a boarder with a size and weight. Then add some margin on the side so the background of the container is showing. To add some depth to the bottom of the card we can increase its thickness.</p>
+
+<p>Right now the image and value are stacked on top of each other. We want them to be aligned side by side horizontally. To do this we wrap the image and text element in a view. This view will have a flex direction of row.</p>
+
+<p>For the last updated section we will want to create a line separating the top part of the card.</p>
+
+<p>We wrap the date text in a view that has a top boarder only.</p>
+
+<p>create. A card component that you can pass props to.</p>
+
+<h2 id="styling-our-care-card">Styling our Care Card</h2>
+<p>We are making a simple react care card component. Each card will have a similar layout where you can then customize the color, text and images. This makes it easier to create different care cards.</p>
+
+<p>lets create a progressive styling for the cards.</p>
+
+<p>our end goal is to create a react component that we can pass props and styling effects for each individual card.</p>
+
+<h2 id="creating-a-list-view-with-multiple-cards">Creating a List View With Multiple Cards</h2>
+
+
+      
+<div class="social">
+  
+  <div class='twitter'>
+    <a href="https://twitter.com/share" class="twitter-share-button"  data-text="React-Native CareCard" data-related="rajvansia">Tweet</a>
+  </div>
+  
+
+  
+  <div class='facebook'>
+    <div class="fb-share-button" data-layout="button_count"></div>
+  </div>
+  
+
+  
+    
+  
+
+  
+  <div class='reddit'>
+    <a href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url=https://rajvansia.com/React-Native-CareCard/&title=React-Native+CareCard'); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+  </div>
+  
+</div>
+
+    </section>
+
+    <footer>
+      <address>
+        <img src="/images/rajv.PNG">
+        <p>Written by <strong><a rel="author" href="https://twitter.com/rajvansia" title="" target="_blank">Raj Vansia</a></strong><br>
+          <span class="muted">Biomedical Engineer IoT</span>
+        </p>
+      </address>
+       
+      
+      
+      <section class="post_summary">
+        <h3 class="title">Previous story: <a href="/Spark-Streaming-Kafka-Setup/" rel="prefetch">Spark Kafka Streaming Setup</a></h3>
+        <p> </p>
+        <hr>
+      </section>
+       
+      
+      <section>
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'rajvansia';
+
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+      </section>
+      
+    </footer>
+  </div>
+</article>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; 2017 Raj Vansia
+        
+      <nav>
+        <a href="/">Blog</a> &middot;
+        <a href="/about/">About</a> &middot;
+        <a href="/recipes/">Recipes</a>
+      </nav>
+        
+      <nav class="social">
+        
+<a href="https://twitter.com/rajvansia" title="Follow on Twitter" target="_blank"><i class="icon icon-twitter"></i></a>
+
+
+
+<a href="/atom.xml" title="RSS Feed">
+  <i class="icon icon-rss"></i>
+</a>
+
+      </nav>
+      <div>Based on Incorporated theme by <a href="https://sendtoinc.com">Inc</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>
 
