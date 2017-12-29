@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>React-Native CareCard &mdash; RajVansia</title>
+  <title>Pneumonia Clinical Stability Predictor Using FHIR & React &mdash; RajVansia</title>
   <!--[if lt IE 9]><script src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js'></script><![endif]-->
 
   <link rel="stylesheet" href="/assets/normalize.css">
@@ -45,12 +45,12 @@
 
   <link rel="shortcut icon" href="/favicon.ico?v2" type="image/x-icon" />
   <link rel="alternate" type="application/atom+xml" title="RajVansia" href="/atom.xml" />
-  <meta name="title" content="React-Native CareCard ">
-  <link rel="canonical" href="https://rajvansia.com/React-Native-CareCard/">
+  <meta name="title" content="Pneumonia Clinical Stability Predictor Using FHIR & React ">
+  <link rel="canonical" href="https://rajvansia.com/Fhir-pneumonia-stability-predictor/">
 
 
-  <meta property="og:title" content="React-Native CareCard"/>
-  <meta property="og:url" content="https://rajvansia.com/React-Native-CareCard/"/>
+  <meta property="og:title" content="Pneumonia Clinical Stability Predictor Using FHIR & React"/>
+  <meta property="og:url" content="https://rajvansia.com/Fhir-pneumonia-stability-predictor/"/>
   <meta property="og:image" content="https://rajvansia.com/images/meditation-tree.jpg"/>
 
   <meta property="og:description" content="Beginning your journey into meditation is like reading a good book that never ends. You will explore the depths of your being and find immense relaxation. To help you get started just see the multitude of benefits that meditation can"/>
@@ -70,68 +70,45 @@
     </nav>
   </header>
 
-
 <article >
 
   <div class="container">
     <header>
       <div class="meta">
         By <address><a rel="author" href="" title="Raj Vansia" target="_blank">Raj Vansia</a></address> &mdash;
-        <time pubdate datetime="2017-27-July" title="Jul 27, 2017">Jul 27, 2017</time> &mdash;
+        <time pubdate datetime="2017-28-December" title="Dec 28, 2017">Dec 28, 2017</time> &mdash;
 
-4 min read
+2 min read
       </div>
-      <h1 class="title">React-Native CareCard</h1>
+      <h1 class="title">Pneumonia Clinical Stability Predictor Using FHIR & React</h1>
       <h2 class="subtitle"></h2>
     </header>
 
     <section>
-      <h2 id="react-native-care-card-for-a-mindful-eating-app">React-Native Care Card for a Mindful Eating App</h2>
-<p>This is the first of the series to make a mindful eating app using react-native and FHIR. The overall app will have a high level dashboard with what i call care cards to show the current mental and health state for patients. It will also track how frequently they practice mindful eating and can log each of their sessions. This can help to determine what is effective in improving their mental and physical wellbeing. One major aim is to make it easy for users to enter in data so that there is a large amount of data to gain meaningful insights.</p>
+      <p>I started an online masters in Computer science at Georgia tech this past fall. OMSC program is great so far as its affordable and because its all online it fits around my schedule. One of the classes I took this semester was healthcare informatics. We had a cool class project where we would use FHIR to create an app that solves a specific healthcare problem. This was a great opportunity to be able to work on a real world problem with a physician from Emory.  Our objective was to predict the clinical stability of patients with clinically acquired pneumonia. I was in charge of the frontend and in this post I will show you some of the react elements I used for the UI.</p>
 
-<p>For the first part of the app we will be creating the high level dashboard. This consists of a reusable reactive component we call a CareCard. This care card will have the parameter we are measuring such as Mood weight, Blood pressure, or mindful eating sessions. It will display the current value of the parameter, icon and the last date the value was updated. The care card is also the entry point to a more detailed view of the scene.</p>
+<p>We created a rules based algorithm that determines the stability based on a 24 hour sliding window of vital signs data. This is done using our python flask backend.  This allows patients from a FHIR server that are diagnosed with pneumonia to be exposed through API.  Here you can find a sample payload from our API.  Some of the inspiration came from the real-time medication insights for CDS hooks.</p>
 
-<p>Ultimintly we will connect the data that is captured from the app to the patient’s EHR. This will allow clinicians more data that they can utilize for diagnosis or prevention.</p>
+<h2 id="front-end-layout">Front End Layout</h2>
 
-<h2 id="design-of-the-care-card">Design of the Care Card</h2>
+<p>We utilized a card component to discreetly . The view of the dashboard lists all of individual cards with patent information. Its a simple concept where a list of patient objects are mapped to individual cards that displays their own vitals data.  It displays the most pertinent data such as stability prediction, length of stay and vitals signs data.</p>
 
-<p>To design the care card we will break up the card into 4 different components. The title of the parameter 2. The Icon 3. the value 4. the date last updated.</p>
+<h2 id="redux-saga-data-binding">Redux Saga Data Binding</h2>
 
-<p>To start our dashboard of cards we will have a container that will wrap all our components. This will include the padding on the top and bottom for our nav bars.</p>
+<p>Our api payload is a list of patient objects that have pneumonia. Within the object there are vital signs and demographic data. We will load the data on component mount. If there is no data in our object yet we will display that the app is loading.</p>
 
-<p>Lets create a basic version of our care card without any styling. All we need to do is layout the components.</p>
+<h2 id="styling">Styling</h2>
+<p>Inline conditional formatting based on the current state. In this case if the status of the patient is stable the text is displayed as green.</p>
 
-<p>The beauty of react is now that i have created a modular component i can use it reputably with the flexibility to change its contents based on the props we pass. So i can use the same cards component to create my mood weight and blood pressure cards. This way our cards are easy to create and they have a consistent layout/theme.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
 
-<h2 id="creating-the-basic-layout">Creating the Basic Layout</h2>
-
-<p>we pass each of these props into our component and display it. For our first iteration it does not look so aesthetic, but it gives you a basic structure of the card. Finally we export default component so it can be used throughout our app.</p>
-
-<p>for our first style we will create the cards. All you have to do is create a boarder with a size and weight. Then add some margin on the side so the background of the container is showing. To add some depth to the bottom of the card we can increase its thickness.</p>
-
-<p>Right now the image and value are stacked on top of each other. We want them to be aligned side by side horizontally. To do this we wrap the image and text element in a view. This view will have a flex direction of row.</p>
-
-<p>For the last updated section we will want to create a line separating the top part of the card.</p>
-
-<p>We wrap the date text in a view that has a top boarder only.</p>
-
-<p>create. A card component that you can pass props to.</p>
-
-<h2 id="styling-our-care-card">Styling our Care Card</h2>
-<p>We are making a simple react care card component. Each card will have a similar layout where you can then customize the color, text and images. This makes it easier to create different care cards.</p>
-
-<p>lets create a progressive styling for the cards.</p>
-
-<p>our end goal is to create a react component that we can pass props and styling effects for each individual card.</p>
-
-<h2 id="creating-a-list-view-with-multiple-cards">Creating a List View With Multiple Cards</h2>
-
+<p>My next iteration I want to try flex box</p>
 
 
 <div class="social">
 
   <div class='twitter'>
-    <a href="https://twitter.com/share" class="twitter-share-button"  data-text="React-Native CareCard" data-related="rajvansia">Tweet</a>
+    <a href="https://twitter.com/share" class="twitter-share-button"  data-text="Pneumonia Clinical Stability Predictor Using FHIR & React" data-related="rajvansia">Tweet</a>
   </div>
 
 
@@ -147,7 +124,7 @@
 
 
   <div class='reddit'>
-    <a href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url=https://rajvansia.com/React-Native-CareCard/&title=React-Native+CareCard'); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+    <a href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url=https://rajvansia.com/Fhir-pneumonia-stability-predictor/&title=Pneumonia+Clinical+Stability+Predictor+Using+FHIR+%26+React'); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
   </div>
 
 </div>
@@ -165,8 +142,8 @@
 
 
       <section class="post_summary">
-        <h3 class="title">Previous story: <a href="/Spark-Streaming-Kafka-Setup/" rel="prefetch">Spark Kafka Streaming Setup</a></h3>
-        <p> </p>
+        <h3 class="title">Previous story: <a href="/React-Native-CareCard/" rel="prefetch">React-Native CareCard</a></h3>
+        <p>Beginning your journey into meditation is like reading a good book that never ends. You will explore the depths of your being and find immense relaxation. To help you get started just see the multitude of benefits that meditation can</p>
         <hr>
       </section>
 
@@ -187,6 +164,7 @@
     </footer>
   </div>
 </article>
+
 
 <footer class="site-footer">
   <div class="container">
@@ -216,6 +194,5 @@
     <div>Based on Incorporated theme by <a href="https://sendtoinc.com">Inc</a></div>
   </div>
 </footer>
-
 </body>
 </html>
