@@ -90,22 +90,18 @@
 
     <section>
       <img class="blogpic" src="https://i.imgur.com/uTXEdeT.png" >
-      <p>I started an online masters in Computer science at Georgia tech this past fall. OMSC program is great so far as its affordable and because its all online it fits around my schedule. One of the classes I took this semester was healthcare informatics. We had a cool class project where we would use FHIR to create an app that solves a specific healthcare problem. This was a great opportunity to be able to work on a real world problem with a physician from Emory.  Our objective was to predict the clinical stability of patients with clinically acquired pneumonia. I was in charge of the frontend and in this post I will show you some of the react elements I used for the UI.</p>
-
-<p>We created a rules based algorithm that determines the stability based on a 24 hour sliding window of vital signs data. This is done using our python flask backend.  This allows patients from a FHIR server that are diagnosed with pneumonia to be exposed through API.  Here you can find a sample payload from our API.  Some of the inspiration came from the real-time medication insights for CDS hooks.</p>
-
+<p>I started an online masters in Computer science at Georgia Tech this past fall. The OMSC program is great so far as its affordable and because its all online so it fits around my schedule. One of the classes I took this semester was healthcare informatics. We had a cool class project where we used FHIR to create an app that solves a specific healthcare problem. This was a great opportunity to be able to work on a real world problem with a physician from Emory.  Our objective was to predict the clinical stability of patients with clinically acquired pneumonia (CAP). I was in charge of the frontend and in this post I will show you some of the react elements I used for the UI.
+</p>
+<p>We created a rules based algorithm that determines the stability of a patient with CAP based on a 24 hour sliding window of vital signs data. This is done using a python flask backend that would retrieve data from a FHIR database.  This allows patients from a FHIR server that are diagnosed with pneumonia to be exposed through API. <a style="color:blue" href="https://gist.github.com/rajvansia/10c272697c07316554c4f7690bf4954d" target="_blank">Here you can find a sample payload from our API.</a>   With FHIR we are able to filter only the patients that have a diagnosis code for pneumonia this allows us to see all active patients within the care of the physician that have pneumonia. 
+</p>
 <h2 id="front-end-layout">Front End Layout</h2>
 <img class="blogpic" src="https://i.imgur.com/VuL1jRF.png" >
-<p>We utilized a card component to discreetly . The view of the dashboard lists all of individual cards with patent information. Its a simple concept where a list of patient objects are mapped to individual cards that displays their own vitals data.  It displays the most pertinent data such as stability prediction, length of stay and vitals signs data.</p>
-
+<p>We utilized a card component to create a compartmentalized view for each patient.   The view of the dashboard lists all of individual cards with patent information. Its a simple concept where a list of patient objects are mapped to individual cards that displays their own vitals data.  It displays the most pertinent data such as stability prediction, length of stay and vitals signs data. We used inline conditional formatting based on the current level of stability for the patient. In this case if the status of the patient is stable the text is displayed as green and if the patient is not stable it will be displayed in red.
+</p>
 <h2 id="redux-saga-data-binding">Redux Saga Data Binding</h2>
-<pre><code class="javascript language-javascript">var s = "JavaScript syntax highlighting";
-alert(s);
-</code></pre>
-<p>Our api payload is a list of patient objects that have pneumonia. Within the object there are vital signs and demographic data. We will load the data on component mount. If there is no data in our object yet we will display that the app is loading.</p>
 
-<h2 id="styling">Styling</h2>
-<p>Inline conditional formatting based on the current state. In this case if the status of the patient is stable the text is displayed as green.</p>
+<p>We used Redux-Saga to manage state within our app.  Our api payload is a list of patient objects that have pneumonia. Within the object there are vital signs and demographic data that we use to display in our card. At the start of our app we load the data on component mount. If there is no data in our object yet we will display that the app is loading. We have a reducer that changes our redux state to include the retrieved patient objects  from our api.  We also implemented the ability to delete a card from the view. The user clicks on the X button to delete a patient from their view and it will remove that patient object from the patient list.
+</p>
 
 
 <div class="social">
