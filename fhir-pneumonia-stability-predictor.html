@@ -95,19 +95,17 @@
 <p>We created a rules based algorithm that determines the stability based on a 24 hour sliding window of vital signs data. This is done using our python flask backend.  This allows patients from a FHIR server that are diagnosed with pneumonia to be exposed through API.  Here you can find a sample payload from our API.  Some of the inspiration came from the real-time medication insights for CDS hooks.</p>
 
 <h2 id="front-end-layout">Front End Layout</h2>
-
+<img class="blogpic" src="https://i.imgur.com/VuL1jRF.png" >
 <p>We utilized a card component to discreetly . The view of the dashboard lists all of individual cards with patent information. Its a simple concept where a list of patient objects are mapped to individual cards that displays their own vitals data.  It displays the most pertinent data such as stability prediction, length of stay and vitals signs data.</p>
 
 <h2 id="redux-saga-data-binding">Redux Saga Data Binding</h2>
-
+<pre><code class="javascript language-javascript">var s = "JavaScript syntax highlighting";
+alert(s);
+</code></pre>
 <p>Our api payload is a list of patient objects that have pneumonia. Within the object there are vital signs and demographic data. We will load the data on component mount. If there is no data in our object yet we will display that the app is loading.</p>
 
 <h2 id="styling">Styling</h2>
 <p>Inline conditional formatting based on the current state. In this case if the status of the patient is stable the text is displayed as green.</p>
-
-<h2 id="final-thoughts">Final Thoughts</h2>
-
-<p>My next iteration I want to try flex box</p>
 
 
 <div class="social">
@@ -139,7 +137,7 @@
     <footer>
       <address>
         <img src="/images/rajv.PNG">
-        <p>Written by <strong><a rel="author" href="https://twitter.com/rajvansia" title="" target="_blank">Raj Vansia</a></strong><br>
+        <p>Written by <strong><a rel="author" href="https://www.linkedin.com/in/rajvansia/" title="" target="_blank">Raj Vansia</a></strong><br>
           <span class="muted">Biomedical Engineer IoT</span>
         </p>
       </address>
