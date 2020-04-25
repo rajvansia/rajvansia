@@ -80,8 +80,8 @@ div.tooltip {
 
 
 var demo = {
-    serviceUrl: "https://sb-fhir-dstu2.smarthealthit.org/api/smartdstu2/open",        //allows you to connect to your smar server and query a patient
-    patientId: "SMART-99912345"   // josuah p willams hca-pat-55 1137192
+    serviceUrl: "https://r4.smarthealthit.org",        //allows you to connect to your smar server and query a patient
+    patientId: "579423cd-3384-4e7d-bf19-295a26d27524"   // josuah p willams hca-pat-55 1137192
 };
 
 // Create a FHIR client (server URL, patient id in `demo`)
@@ -106,9 +106,9 @@ pt.api.search({type: "Observation", query: {code:  {$or: ["55284-4" ]}}}) // it 
 
        bps.data.entry.forEach(function(bp){            // how can we access diffrent datat from the model for a set of blood pressures do it for one blood pressure
               var blood= bp.resource.component;
-                  console.log(bp.resource.effectiveDateTime
-)
-console.log(blood)
+                  console.log(bp.resource.effectiveDateTime)
+                  console.log(blood)
+                  console.log(bp)
 
               blood.forEach(function(b){
                   var bloodSys;
@@ -136,8 +136,9 @@ var margin = {top: 10, right: 10, bottom: 100, left: 40},
     height = 400 - margin.top - margin.bottom,
     height2 = 400 - margin2.top - margin2.bottom;
 
-var parseDate = d3.timeParse("%Y-%m-%d");
+var parseDate = d3.timeParse("%Y-%m-%dT%H:%M:%S%Z");
 var formatTime = d3.timeFormat("%e %B");
+console.log(parseDate("2010-07-10T18:00:28-04:00"))
 
 
 var x = d3.scaleTime().range([0, width]),
