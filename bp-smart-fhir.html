@@ -48,7 +48,7 @@ function name() {pt.read()
 return formatted;
 });}
 name();
-console.log(formatted)
+
 pt.read()
     .then(function (p) {
     var phone = p.telecom[0];
@@ -56,7 +56,7 @@ pt.read()
     $("#patient_phone").text(formatted);
 });
 
-var formatTime = d3.time.format("%e %B %Y");
+var parseTime = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
 
  pt.api.search({type: "Observation", query: {code:  {$or: ["55284-4" ]}}}) // it worked you need to identifey what code you waan
     .then(function(bps) {
@@ -68,10 +68,14 @@ var formatTime = d3.time.format("%e %B %Y");
          var sys = 0;
        bps.data.entry.forEach(function(bp){            // how can we access diffrent datat from the model for a set of blood pressures do it for one blood pressure
               var blood= bp.resource.component;
-                  console.log(bp.resource.effectiveDateTime
-)
+              date = bp.resource.effectiveDateTime
+              dateFormat = date.substring(0, date.length - 6)
+              dateFormat =  parseTime(dateFormat)
 
-x.push(bp.resource.effectiveDateTime)
+                  // console.log(formatTime(bp.resource.effectiveDateTime))
+
+// put the time and date of the measurement 
+x.push(dateFormat)
 
               blood.forEach(function(b){
 
@@ -85,7 +89,7 @@ x.push(bp.resource.effectiveDateTime)
             data.push(b.valueQuantity.value)}
               dia = b.valueQuantity.value
               })
-              console.log(sys + "/" + dia)
+              // console.log(sys + "/" + dia)
 
         });
 
@@ -113,7 +117,10 @@ var chart = c3.generate({
             type : 'timeseries',
             tick: {
               count: 6,
-               format: '%m-%d-%Y',
+              //'%Y-%m-%dT%H:%M:%S.%LZ'
+              //("%Y-%m-%dT%H:%M:%S%Z");
+              //1942-08-22T06:31:59-04:00'
+               format: '%Y-%m-%d',
 
             },
             label: { // ADD
@@ -140,7 +147,7 @@ var chart = c3.generate({
     },
     tooltip: {
         format: {
-            title: function (d) {var dr = formatTime(d); return 'BP: ' + dr; },
+            title: function (d) {var dr = d; return 'BP: ' + dr; },
             value: function (value, ratio, id) {
                 var format = id === 'data1' ? d3.format(',') : d3.format('');
                 return format(value);
