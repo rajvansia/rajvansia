@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:image" content="http://www.rajvansia.com/images/bp.PNG" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/normalize.css">
+<link rel="stylesheet" href="/assets/core.css">
+<link rel="stylesheet" href="/assets/buttons.css">
+<link rel="stylesheet" href="/assets/icons.css">
+<link rel="stylesheet" href="/assets/article.css">
+<link rel="stylesheet" href="/assets/contact_form.css">
+<link rel="stylesheet" href="/assets/syntax.css">
+<link rel="stylesheet" href="/assets/google_map_container.css">
+<link rel="stylesheet" href="/assets/cover.css">
+<link rel="stylesheet" href="/assets/pagination.css">
+<link rel="stylesheet" href="/assets/site_header.css">
+<link rel="stylesheet" href="/assets/site_footer.css">
+<link rel="stylesheet" href="/assets/responsive.css">
+<link rel="stylesheet" href="/assets/app.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.4/gist-embed.min.js"></script>
+<style type="text/css">
+.blogpic{
+		max-width:100%
+	}
+  .blogimg{
+  		max-width:50%
+  	}
+.title {
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 80px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+
+svg {
+  font: 1px sans-serif;
+}
+
+.line {
+  fill: none;
+  stroke: #23fbbd;
+  stroke-width: 3.5px;
+}
+
+.lineT {
+    fill: none;
+    stroke: #7dc7f4;
+    stroke-width: 1px;
+
+}
+
+article .container {
+    max-width: 100%;
+    margin: 44 auto;
+}
+.tolerance {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+b, strong {
+    font-weight: 700;
+    color: #b3b3b3;
+}
+
+.twitchSearchApp {
+  width: 500px
+}
+
+
+.list-group {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+   background-color: #293543;
+}
+
+.list-group-item {
+   background-color: #293543;
+}
+.streamerName {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.numOfViewers {
+  padding-left: 10px;
+  font-size: 2.2em;
+ color: rgb(0, 255, 0);
+}
+
+.fa-user {
+  color: red;
+}
+
+.streamTitle {
+  margin-bottom: 0px;
+}
+
+.patientText {
+ color: black;
+
+}
+
+.patientButton {
+ margin-bottom: 10px;
+
+}
+
+.streamerLogo {
+  width: 75px;
+  height: 75px;
+}
+
+
+/*footer {
+  background-color: #673AB7;
+  height: 50px;
+  color: white;
+}
+
+footer p {
+  margin-top: 20px;
+  padding-top: 15px;
+}*/
+</style>
+<head>
+<meta charset="utf-8">
+<title>Uploading Synthetic Patient Data to a HAPI FHIR server using Synthea and Python</title>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  <meta name="title" content="Uploading Synthetic Patient Data to a HAPI FHIR server using Synthea and Python">
+
+  <meta property="og:description" content="Uploading Synthetic Patient Data to a FHIR server using Synthea and Python"/>
+  <meta name="description" content="Uploading Synthetic Patient Data to a FHIR server using Synthea and Python"/>
+
+  <meta property="og:site_name" content="Raj Vansia">
+</head>
+
+<body>
+
+
+<header class="site-header">
+   <nav>
+      <a class="brand" href="https://rajvansia.com/index.html">
+        <img src="/images/logo.png" alt="Inc">
+      </a>
+      <a href="https://rajvansia.com/index.html">Blog</a>
+      <a href="https://rajvansia.com/about/">About</a>
+    </nav>
+</header>
+
+
+<!-- <div class="article-cover" style="background-image:url(https://lh3.googleusercontent.com/ym99kcNrnmKiPhr0ZtunGy-jy3EsNMU523iLcCkJn6fHpYMryq2CKa3VqqghunkU5-9Wp8XjPGYeZMZKCr1w-yidRJQ24_bX-hqHfsdXfhMDEWeHfFJtJGi9zybtsAqb6eZVlJ0C1dDhfpuScQxUex3752XDCX7QIGlSZhBWo08bLTZcOxWftofJA0RaRroiNtoSJDPFRYhT0NUltr1MUGUH8eimaF628Az6XZUahsc3UYhNREAbw9ciKCeK9bgC9I_h03rW_sofacD9dZJpGma1wOnrEnEjibYTSGFeJI6ITzoRPP2ZHzrz4TpZMuYKTS8IbI8sadolGYe5XZinxEDfzDyS3u_d6xViL-iRsqbsoigrCB49huTmJ6XjSbYih4EdCjK_dERmCrreA_gcQZ05F9PZV9i16-SvkVeRcm8PYUaipZUlaZnlyaBkNfPrKl1CxO9PX-w9dy15xlfXbhTtEzizLxZ6U-SpZRQf6jv5p2imYTpdlUholNXwr0nbnji-lKHA50ef5r8iHOKd8tvruzwsgZnL15gdMLPn0PY39_AuB_K5nOft5StAro6LnC2c=w799-h599-no)"></div> -->
+
+
+<!-- <div class='cover-caption'><a href='/about.html#pictures'>Swiss Alps Photo: Janki Vansia</a></div> -->
+
+
+<article >
+
+<div class="container">
+  <header>
+    <div class="meta">
+      By <address><a rel="author" href="/medical-vital-signs-kafka-1.html" title="Raj Vansia" target="_blank">Raj Vansia</a></address> &mdash;
+      <time pubdate datetime="2016-27-November" title="Aug 9, 2016">June 14, 2020</time> &mdash;
+
+5 min read
+    </div>
+    <h1 style="color:black" class="title">Uploading Synthetic Patient Data to a FHIR server using Synthea and Python</h1>
+
+  </header>
+
+  <img  src="/images/hapifhir.png" style= "margin-left: 0px;" >
+  <section>
+
+    <!-- <p>Keeping tabs on all your medical devices</a>.</p> -->
+<br></br>
+<p>
+  I created a small python script to upload  patient resources from bundle json files into a fhir server. When  prototyping fhir apps I have normally used public fhir servers available. Here is a good list of them  <a style="color:blue" href="https://wiki.hl7.org/Publicly_Available_FHIR_Servers_for_testing" target="_blank">here</a>. However, most of these servers reset their data parodically. They also might not be always available. I decided to deploy a local fhir server so I have more control and can experiment with writing data and persisting more complex patient examples.
+
+
+<h1>HAPI FHIR Server</h1>
+<p>
+
+  HAPI on fhir is a great out of the box fhir server that you can host locally. You can find the github page <a style="color:blue" href="https://github.com/hapifhir/hapi-fhir-jpaserver-starter" target="_blank">here</a>. It has great documentation. In addition to a fhir server it also provides a UI so you can interactively explore the data and perform CRUD operations.
+
+</p>
+<h1>Create Patient Data With Synthea</h1>
+
+<p>
+  I quickly realized that manually creating patients and other fhir resources would be tedious and not clinically relevant. So I found <a style="color:blue" href="https://github.com/synthetichealth/synthea" target="_blank">Synthea</a> which is a great open source tool to generate realistic patient data. The great part is that it outputs json files in fhir r4  bundle transaction format. These bundle resources allow for multiple transactions to be applied to the fhir server in a bulk fashion. For example this means by making just one api call I can upload patient name information but also all their observation and medication resources.
+</p>
+
+  <p>
+    I used Synthea to generate 1000 patient examples. This is outputted in 1000 patient files. The next task was how I could upload all of these files to my local hapi fhir server. So I was exploring the hapi ui and found a place where bundle transactions could be uploaded. This worked great with uploading all the resources for one patient. However, I was not going to manually do this for each patient. There was not a way to do a bulk upload of all patients.
+
+  </p>
+
+  <h1>Pyhton Script to Upload Patients</h1>
+<code data-gist-id="a73812dc902c84a15959025ebfdb7b72"   data-gist-file="upload-fhir-bundle.py" data-gist-line="1-22"></code><p>
+  <p>
+    Instead I created the below python script that would make a POST call for each patient file and upload the bundle patient data to my fhir server. All it does is make a POST call for a fhir bundle transaction for patient json file. Here is the code.
+  </p>
+
+<div class="social">
+
+<div class='twitter'>
+  <a href="https://twitter.com/share" class="twitter-share-button"  data-text="REal time tracking system" data-related="Rajvansia">Tweet</a>
+</div>
+
+
+
+<div class='facebook'>
+  <div class="fb-share-button" data-layout="button_count"></div>
+</div>
+
+
+
+
+
+
+<!--
+<div class='reddit'>
+  <a href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url=http://willkoehler.net/2014/12/22/alternate-route-options-for-the-olentangy-trail.html&title=Alternate+Route+Options+For+The+Olentangy+Trail'); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+</div> -->
+
+</div>
+
+  </section>
+
+  <footer style="margin-bottom:100px">
+    <!-- <address>
+      <img src="/images/wk.jpg">
+      <p>Written by <strong><a rel="author" href="https://twitter.com/wckoehler" title="" target="_blank">Will Koehler</a></strong><br>
+        <span class="muted">Cycling advocate and web developer.</span>
+      </p>
+    </address>
+
+
+
+    <section class="post_summary">
+      <h3 class="title">Previous story: <a href="/2014/11/07/client-side-solution-for-downloading-highcharts-charts-as-images.html" rel="prefetch">Client-Side Solution For Downloading Highcharts Charts as Images</a></h3>
+      <p>I wanted a straightforward, client-side solution for downloading the SVG charts generated by Highcharts as images. It can be done, but relies on a set of web technologies that are still evolving.</p>
+      <hr>
+    </section> -->
+
+
+    <section>
+      <div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//rajvansia.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </section>
+
+  </footer>
+</div>
+</article>
+
+
+<footer class="site-footer">
+<div class="container">
+  &copy; 2015 Raj Vansia
+
+  <nav>
+    <a href="/">Blog</a> &middot;
+    <a href="/about">About</a>
+  </nav>
+
+
+
+  <ul class="social-networks bounce">
+    <!-- <li><a href="https://www.linkedin.com/in/rajvansia" class="icon-linkedin">LinkedIn</a></li>
+    <li><a href="https://twitter.com/rajvansia" class="icon-twitter">Twitter</a></li>
+    <li><a href="https://facebook.com/raj.vansia" class="icon-facebook">Facebook</a></li>
+     -->
+   <li><a href="https://www.linkedin.com/in/rajvansia" class="icon-linkedin">LinkedIn</a></li>
+    <li><a href="https://github.com/rajvansia" class="icon-github">GitHub</a></li>
+    <li><a href="https://facebook.com/raj.vansia" class="icon-facebook">Facebook</a></li>
+    <!-- <li><a href="https://twitch.tv" class="icon-twitch">Twitch</a></li>
+    <li><a href="https://github.com" class="icon-github">GitHub</a></li>
+    <li><a href="https://pinterest.com" class="icon-pinterest">Pinterest</a></li>
+    <li><a href="https://instagram.com" class="icon-instagram">Instagram</a></li>
+    <li><a href="https://vimeo.com" class="icon-vimeo">Vimeo</a></li> -->
+  </ul>
+  <div>Based on Incorporated theme by <a href="https://sendtoinc.com">Inc</a></div>
+</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pubnub/3.7.7/pubnub.js"></script>
+<script src="https://cdn.jsdelivr.net/xdate/0.8/xdate.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/smart-on-fhir/client-js/v0.1.1/dist/fhir-client.js"></script>
+<script  src="./js/bundle.js"></script>
+
+
+
+</body>
+</html>
