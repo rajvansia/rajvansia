@@ -192,7 +192,7 @@ footer p {
     <!-- <p>Keeping tabs on all your medical devices</a>.</p> -->
 <br></br>
 <p>
-  I created a small python script to upload  patient resources from bundle json files into a fhir server. When  prototyping fhir apps I have normally used public fhir servers available. Here is a good list of them  <a style="color:blue" href="https://wiki.hl7.org/Publicly_Available_FHIR_Servers_for_testing" target="_blank">here</a>. However, most of these servers reset their data parodically. They also might not be always available. I decided to deploy a local fhir server so I have more control and can experiment with writing data and persisting more complex patient examples.
+  I created a small python script to upload  patient resources from bundle json files into a fhir server. When  prototyping fhir apps I have normally used public fhir servers which are widely available. <a style="color:blue" href="https://wiki.hl7.org/Publicly_Available_FHIR_Servers_for_testing" target="_blank">Here is a good list </a> of publicly available fhir servers. However, most of these servers reset their data periodically. They also might not be always available. I decided to deploy a local fhir server so I have more control and can experiment with writing data and persisting more complex patient examples.
 
 
 <h1>HAPI FHIR Server</h1>
@@ -213,10 +213,12 @@ footer p {
   </p>
 
   <h1>Pyhton Script to Upload Patients</h1>
-<code data-gist-id="a73812dc902c84a15959025ebfdb7b72"   data-gist-file="upload-fhir-bundle.py" data-gist-line="1-22"></code><p>
   <p>
     Instead I created the below python script that would make a POST call for each patient file and upload the bundle patient data to my fhir server. All it does is make a POST call for a fhir bundle transaction for patient json file. Here is the code.
   </p>
+
+  <code data-gist-id="a73812dc902c84a15959025ebfdb7b72"   data-gist-file="upload-fhir-bundle.py" data-gist-line="1-22"></code><p>
+
 
 <div class="social">
 
